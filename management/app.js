@@ -1,18 +1,10 @@
 /*
- * @Descripttion: 
- * @version: 
- * @Author: shaye
- * @Date: 2023-10-26 19:59:26
- * @LastEditors: shaye
- * @LastEditTime: 2023-10-26 20:43:44
- */
-/*
  * @Descripttion:
  * @version:
  * @Author: shaye
  * @Date: 2023-10-26 19:59:26
  * @LastEditors: shaye
- * @LastEditTime: 2023-10-26 20:42:38
+ * @LastEditTime: 2023-10-27 17:43:34
  */
 var createError = require("http-errors");
 var express = require("express");
@@ -20,11 +12,14 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const cors = require("cors");
+//用于处理post请求，不引入该包会404
+const bodyParser = require("body-parser");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var accountRouter = require("./routes/account");
 var findRouter = require("./routes/api/find");
+const registerRouter = require("./routes/login/register");
 
 var app = express();
 
@@ -38,11 +33,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/account", accountRouter);
 app.use("/api/find", findRouter);
+app.use("/register", registerRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
