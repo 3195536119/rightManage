@@ -4,7 +4,7 @@
  * @Author: shaye
  * @Date: 2023-10-26 19:59:26
  * @LastEditors: shaye
- * @LastEditTime: 2023-10-27 17:43:34
+ * @LastEditTime: 2023-10-27 19:27:14
  */
 var createError = require("http-errors");
 var express = require("express");
@@ -20,6 +20,7 @@ var usersRouter = require("./routes/users");
 var accountRouter = require("./routes/account");
 var findRouter = require("./routes/api/find");
 const registerRouter = require("./routes/login/register");
+const loginRouter = require("./routes/login/login");
 
 var app = express();
 
@@ -41,6 +42,7 @@ app.use("/users", usersRouter);
 app.use("/account", accountRouter);
 app.use("/api/find", findRouter);
 app.use("/register", registerRouter);
+app.use("/login", loginRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
