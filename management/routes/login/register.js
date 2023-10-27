@@ -8,7 +8,7 @@
  */
 const express = require("express");
 
-const userModel = require("../../db/models/users");
+const userModel = require("../../db/models/userModel");
 
 const bcrypt = require("bcryptjs");
 
@@ -39,6 +39,7 @@ router.post("/", (req, res) => {
                 name: req.body.name,
                 email: req.body.email,
                 password,
+                identity: req.body.identity,
               })
               .then((user) => res.json(user))
               .catch((err) => console.log(err));

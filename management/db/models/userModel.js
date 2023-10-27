@@ -4,7 +4,7 @@
  * @Author: shaye
  * @Date: 2023-10-26 20:59:55
  * @LastEditors: shaye
- * @LastEditTime: 2023-10-27 17:31:46
+ * @LastEditTime: 2023-10-27 22:06:24
  */
 const Mysequelize = require("../db");
 const { DataTypes } = require("sequelize");
@@ -32,6 +32,10 @@ const userModel = Mysequelize.define("User", {
   },
   avatar: {
     type: DataTypes.STRING,
+  },
+  identity: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   date: {
     type: DataTypes.DATE,

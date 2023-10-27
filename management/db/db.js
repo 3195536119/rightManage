@@ -10,9 +10,11 @@ const mysql = require("mysql2");
 
 const { Sequelize } = require("sequelize");
 
+const { db } = require("../config/config");
+
 //注意这里数据库的坑，在navicat中新建了一个连接之后，需要在该连接下新建同名的数据库才能成功
-const Mysequelize = new Sequelize("management", "root", "root", {
-  host: "localhost",
+const Mysequelize = new Sequelize(db.database, db.user, db.password, {
+  host: db.host,
   dialect: "mysql",
 });
 

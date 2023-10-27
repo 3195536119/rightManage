@@ -4,7 +4,7 @@
  * @Author: shaye
  * @Date: 2023-10-26 19:59:26
  * @LastEditors: shaye
- * @LastEditTime: 2023-10-27 19:27:14
+ * @LastEditTime: 2023-10-27 21:19:53
  */
 var createError = require("http-errors");
 var express = require("express");
@@ -14,6 +14,7 @@ var logger = require("morgan");
 const cors = require("cors");
 //用于处理post请求，不引入该包会404
 const bodyParser = require("body-parser");
+const passport = require("passport");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -36,6 +37,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(passport.initialize());
+require("./config/passport")(passport);
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
