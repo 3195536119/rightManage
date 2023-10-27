@@ -8,17 +8,6 @@
  */
 const mysql = require("mysql");
 
-// const connection = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: "root",
-//   database: "right",
-// });
-
-// connection.connect();
-
-// exports = connection;
-
 const { Sequelize } = require("sequelize");
 
 const Mysequelize = new Sequelize("right", "root", "root", {

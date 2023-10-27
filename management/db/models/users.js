@@ -1,10 +1,10 @@
 /*
- * @Descripttion: 
- * @version: 
+ * @Descripttion:
+ * @version:
  * @Author: shaye
  * @Date: 2023-10-26 20:59:55
  * @LastEditors: shaye
- * @LastEditTime: 2023-10-26 21:34:57
+ * @LastEditTime: 2023-10-26 21:50:44
  */
 const Mysequelize = require("../db");
 const { DataTypes } = require("sequelize");
@@ -13,6 +13,7 @@ const userModel = Mysequelize.define("User", {
   id: {
     type: DataTypes.UUID,
     primaryKey: true,
+    allowNull: false,
   },
   name: {
     type: DataTypes.STRING,
