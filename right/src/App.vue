@@ -1,8 +1,16 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: shaye
+ * @Date: 2023-10-26 20:01:30
+ * @LastEditors: shaye
+ * @LastEditTime: 2023-10-28 21:45:32
+-->
 <template>
-  <nav>
+  <!-- <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
-  </nav>
+  </nav> -->
   <router-view/>
 </template>
 
