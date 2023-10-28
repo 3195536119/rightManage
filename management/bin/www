@@ -1,10 +1,10 @@
 /*
- * @Descripttion: 
- * @version: 
+ * @Descripttion:
+ * @version:
  * @Author: shaye
  * @Date: 2023-10-26 19:59:26
  * @LastEditors: shaye
- * @LastEditTime: 2023-10-27 20:29:51
+ * @LastEditTime: 2023-10-28 20:22:10
  */
 // #!/usr/bin/env node
 
@@ -93,4 +93,5 @@ function onListening() {
   var addr = server.address();
   var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
   debug("Listening on " + bind);
+  console.log(`server is running on ${port}`);
 }

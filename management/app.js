@@ -4,7 +4,7 @@
  * @Author: shaye
  * @Date: 2023-10-26 19:59:26
  * @LastEditors: shaye
- * @LastEditTime: 2023-10-27 21:19:53
+ * @LastEditTime: 2023-10-28 20:23:39
  */
 var createError = require("http-errors");
 var express = require("express");
@@ -16,10 +16,6 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-var accountRouter = require("./routes/account");
-var findRouter = require("./routes/api/find");
 const registerRouter = require("./routes/login/register");
 const loginRouter = require("./routes/login/login");
 const profileRouter = require("./routes/profile");
@@ -41,10 +37,6 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 require("./config/passport")(passport);
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
-app.use("/account", accountRouter);
-app.use("/api/find", findRouter);
 app.use("/register", registerRouter);
 app.use("/login", loginRouter);
 app.use("/profile", profileRouter);
