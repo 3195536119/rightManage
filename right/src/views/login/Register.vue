@@ -6,7 +6,7 @@
             </div>
 
             <el-form ref="registerFormRef" :model="registerFormData" :rules="rules" label-width="120px" status-icon>
-                <el-form-item label="用户名" prop="name">
+                <el-form-item label="用户名" prop="userName">
                     <el-input v-model="registerFormData.userName" />
                 </el-form-item>
                 <el-form-item label="邮箱" prop="email">
@@ -16,19 +16,17 @@
                     <el-input v-model="registerFormData.password" type="password" show-password />
                 </el-form-item>
                 <el-form-item label="确认密码" prop="checkPass">
-                    <el-input v-model="registerFormData.chackPass" type="password" show-password />
+                    <el-input v-model="registerFormData.checkPass" type="password" show-password />
                 </el-form-item>
                 <el-form-item label="选择身份" prop="identity">
                     <el-select v-model="registerFormData.identity" class="m-2" placeholder="Select">
                         <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
                     </el-select>
                 </el-form-item>
-
                 <el-form-item>
                     <el-button type="primary" @click="register(registerFormRef)">
                         注册
                     </el-button>
-                    <el-button @click="resetForm(registerFormRef)">重置</el-button>
                 </el-form-item>
             </el-form>
         </section>
@@ -36,7 +34,9 @@
 </template>
 
 <script setup>
+import { ElMessage } from "element-plus";
 import { ref, reactive } from "vue";
+import axios from '../../http/http'
 const registerFormRef = ref()
 
 const options = [{
@@ -51,7 +51,7 @@ const registerFormData = reactive({
     userName: '',
     email: '',
     password: '',
-    checkPass:'',
+    checkPass: '',
     identity: 'employee'
 })
 
@@ -67,42 +67,64 @@ let validateEmail = (rule, value, callback) => {
 }
 
 let validateCheckPass = (rule, value, callback) => {
-    if(value==''){
+    if (value == '') {
         callback('请确认密码！')
-    }else if(value!=registerFormData.password){
+    } else if (value != registerFormData.password) {
         callback('两次输入的密码不一致！')
-    }else{
+    } else {
         callback()
     }
- }
+}
 
- const rules = reactive({
-    name: [{
+const rules = reactive({
+    userName: [{
         required: true,
-        message: '用户名不能为空！'
+        message: '用户名不能为空！',
+        trigger: 'blur'
     }],
     password: [{
         required: true,
-        message: '密码不能为空！'
+        message: '密码不能为空！',
+        trigger: 'blur'
     }],
-    checkPass:[{
-        required:true,
-        validator:validateCheckPass
+    checkPass: [{
+        required: true,
+        validator: validateCheckPass,
+        trigger: 'blur'
     }],
-    email:[{
-        required:true,
-        validator:validateEmail
+    email: [{
+        required: true,
+        validator: validateEmail,
+        trigger: 'blur'
     }]
 })
 
 
 function register() {
-
+    registerFormRef.value.validate(validate => {
+        if (validate) {
+            console.log(registerFormData)
+            axios({
+                method: 'post',
+                url: '/register',
+                data: {
+                    name: registerFormData.userName,
+                    password: registerFormData.password,
+                    email: registerFormData.email,
+                    identity: registerFormData.identity
+                }
+            }).then(res => {
+                console.log(res)
+            }).catch(err => {
+                console.log(err)
+            })
+        } else {
+            ElMessage.error('校验失败，请重新检查！')
+            return false
+        }
+    })
 }
 
-function resetForm() {
-    registerFormRef.value.resetFields()
-}
 </script>
 
 <style lang="scss" scoped>
@@ -118,11 +140,11 @@ function resetForm() {
         height: 210px;
         position: absolute;
 
-        padding: 25px;
+        /*padding: 25px;*/
         border-radius: 5px;
         text-align: center;
         left: 40.2%;
-        top: 25%;
+        top: 10%;
         opacity: 0.8;
 
         .manage_tip {

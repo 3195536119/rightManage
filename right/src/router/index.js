@@ -4,16 +4,15 @@
  * @Author: shaye
  * @Date: 2023-10-26 20:01:30
  * @LastEditors: shaye
- * @LastEditTime: 2023-10-28 21:45:08
+ * @LastEditTime: 2023-10-29 15:47:34
  */
-import { createRouter, createWebHashHistory } from "vue-router";
-// import HomeView from "../views/HomeView.vue";
+import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: () => import("../views/Register.vue"),
+    name: "layout",
+    component: () => import("../views/Layout.vue"),
     // children: [
     //   {
     //     path: "register",
@@ -21,20 +20,20 @@ const routes = [
     //   },
     // ],
   },
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: function () {
-  //     return import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  //   }
-  // }
+  {
+    path: "/register",
+    name:'register',
+    component:()=>import('../views/login/Register.vue')
+  },
+  {
+    //访问没有定义的路由时，跳转到404
+    path: "/:pathMatch(.*)",
+    component:()=>import('../views/404.vue')
+  },
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(process.env.BASE_URL),
   routes,
 });
 
